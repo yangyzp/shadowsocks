@@ -671,7 +671,7 @@ class WebTransfer(object):
                     trace = traceback.format_exc()
                     logging.error(trace)
                     # logging.warn('db thread except:%s' % e)
-                if db_instance.event.wait(180) or not db_instance.is_all_thread_alive():
+                if db_instance.event.wait(120) or not db_instance.is_all_thread_alive():
                     break
                 if db_instance.has_stopped:
                     break

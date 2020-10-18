@@ -24,7 +24,6 @@ ENV NODE_ID=0                     \
 
 RUN  apk --no-cache add \
                         curl \
-                        libintl \
                         python3-dev \
                         libsodium-dev \
                         openssl-dev \
@@ -51,6 +50,8 @@ RUN  apk --no-cache add \
      pip install -r requirements.txt          && \
      rm -rf ~/.cache && touch /etc/hosts.deny && \
      apk del --purge .build-deps
+
+WORKDIR /root/shadowsocks
 
 CMD envsubst < apiconfig.py > userapiconfig.py && \
     envsubst < config.json > user-config.json  && \

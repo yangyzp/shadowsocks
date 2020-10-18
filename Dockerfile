@@ -27,6 +27,7 @@ WORKDIR /root/shadowsocks
 
 RUN  apk --no-cache add \
                         curl \
+                        libintl \
                         python3-dev \
                         libsodium-dev \
                         openssl-dev \
@@ -37,6 +38,7 @@ RUN  apk --no-cache add \
                         libtool \
                         libffi-dev            && \
      apk --no-cache add --virtual .build-deps \
+                        git \
                         tar \
                         make \
                         gettext \
@@ -47,7 +49,8 @@ RUN  apk --no-cache add \
                         linux-headers         && \
      ln -s /usr/bin/python3 /usr/bin/python   && \
      ln -s /usr/bin/pip3    /usr/bin/pip      && \
-     cp  /usr/bin/envsubst  /usr/local/bin/   && \
+     git clone -b manyuser https://github.com/wikicc/shadowsocks.git "/root/shadowsocks" --depth 1 && \
+     cd  /root/shadowsocks                    && \
      pip install --upgrade pip                && \
      pip install -r requirements.txt          && \
      rm -rf ~/.cache && touch /etc/hosts.deny && \

@@ -22,11 +22,9 @@ ENV NODE_ID=0                     \
     CONNECT_VERBOSE_INFO=0        \
     FAST_OPEN=false
 
-COPY . /root/shadowsocks
-WORKDIR /root/shadowsocks
-
 RUN  apk --no-cache add \
                         curl \
+                        libintl \
                         python3-dev \
                         libsodium-dev \
                         openssl-dev \
@@ -40,7 +38,6 @@ RUN  apk --no-cache add \
                         git \
                         tar \
                         make \
-                        gettext \
                         py3-pip \
                         autoconf \
                         automake \
@@ -54,8 +51,6 @@ RUN  apk --no-cache add \
      pip install -r requirements.txt          && \
      rm -rf ~/.cache && touch /etc/hosts.deny && \
      apk del --purge .build-deps
-
-WORKDIR /root/shadowsocks
 
 CMD envsubst < apiconfig.py > userapiconfig.py && \
     envsubst < config.json > user-config.json  && \

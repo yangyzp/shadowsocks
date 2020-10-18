@@ -56,4 +56,4 @@ WORKDIR /root/shadowsocks
 CMD envsubst < apiconfig.py > userapiconfig.py && \
     envsubst < config.json > user-config.json  && \
     echo -e "${DNS_1}\n${DNS_2}\n" > dns.conf  && \
-    python server.py
+    python /root/shadowsocks/server.py
